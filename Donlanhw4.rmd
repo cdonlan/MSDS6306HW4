@@ -1,0 +1,164 @@
+---
+title: "MSDS 6306 Homework 4"
+author: "Chris Donlan"
+date: "October 20, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+#Overview
+The central limit theorem (CLT) states that, given certain conditions, the arithmetic mean of a sufficiently large number of iterates of independent random variables, each with a well-defined expected value and well-defined variance, will be approximately normally distributed, regardless of the underlying distribution
+
+In this test, we will illistrate how the CLT works, by bootstrapping a small random sample of numbers. The first two samples, normalsample1 and normalsample2, were created using rnorm. The third and forth bootstrap, came from random sample from an exponential distribution pupulation by using rexp. 
+
+
+##Normal Distribution Sample 1
+In this experiement, we will create a small sample of five number from a noramlly distributed population.
+```{r }
+Count<-1000
+bootmean<- numeric(Count)
+normalsample1 <- rnorm(5, mean = 0, sd = 10)
+```
+
+###Descriptive statistics and histogram for sample1
+```{r}
+#Mean for sample1
+mean(normalsample1)
+#Standard Deviation for sample1
+sd(normalsample1)
+#Histogram for sample1
+hist(normalsample1, col="blue")
+```
+
+###Bootstrap sample1
+Next, we take a sample of 50 numbers, from sample, 1000 times. We save the mean of each sample into a vector called bootmean.
+```{r}
+for(i in 1:Count) {
+  bootsample <- sample(normalsample1, size=50, replace=TRUE)
+  bootmean[i]<- mean(bootsample)
+}
+```
+
+###Descriptive statistics and histogram for bootstrap sample1
+We can see that the mean of the bootmean samples is very close to our original mean.
+```{r}
+sd(bootmean)
+mean(bootmean)
+```
+
+We can see the means from bootstraping follow a normal distribution.
+```{r}
+hist(bootmean, col="blue")
+```
+
+##Normal Distribution Sample 2
+Similar to normalsample1, but this random normal sample has a larger standard deviation.
+```{r}
+normalsample2 <- rnorm(8,mean=0, sd=100)
+```
+
+###Descriptive statistics and histogram for normalsample2
+```{r}
+mean(normalsample2)
+sd(normalsample2)
+hist(normalsample2, col="green")
+```
+
+Next, we take a sample of 50 numbers, from sample, 1000 times. We save the mean of each sample into a vector called bootmean.
+```{r}
+#Reset bootsample and bootmean
+bootsample <-NULL
+bootmean <- NULL
+
+for(i in 1:Count) {
+  bootsample <- sample(normalsample2, size=50, replace=TRUE)
+  bootmean[i]<- mean(bootsample)
+}
+```
+
+###Descriptive statistics and histogram for bootstrap normalsample2
+
+```{r}
+mean(bootmean)
+sd(bootmean)
+```
+We can see the means from bootstraping follow a normal distribution.
+```{r}
+hist(bootmean, col="green")
+```
+
+##Exponential Distribution Sample 1
+In this experiement, we will create a small sample of five number from a exponential distributed.
+```{r}
+expsample1 <- rexp(5, rate = 1)
+```
+
+###Descriptive statistics and histogram for expsample1
+```{r}
+hist(expsample1, col="red")
+mean(expsample1)
+sd(expsample1)
+```
+
+Next, we take a sample of 50 numbers, from sample, 1000 times. We save the mean of each sample into a vector called bootmean.
+```{r }
+bootsample <-NULL
+bootmean <- NULL
+
+for(i in 1:Count) {
+  bootsample <- sample(expsample1, size=50, replace=TRUE)
+  bootmean[i]<- mean(bootsample)
+}
+```
+
+###Descriptive statistics and histogram for bootstrap mean of expsample1
+```{r}
+mean(bootmean)
+sd(bootmean)
+```
+We can see the means from bootstraping follow a normal distribution.
+```{r}
+hist(bootmean, col="red")
+```
+
+
+##Exponential Distribution Sample 2
+In this experiement, we will create a small sample of five number from a exponential distributed, with a rate of 2.
+```{r}
+expsample2 <- rexp(5, rate = 2)
+```
+
+###Descriptive statistics and histogram for expsample2
+```{r}
+hist(expsample2, col="yellow")
+mean(expsample2)
+sd(expsample2)
+```
+
+Next, we take a sample of 50 numbers, from sample, 1000 times. We save the mean of each sample into a vector called bootmean.
+```{r}
+bootsample <-NULL
+bootmean <- NULL
+
+for(i in 1:Count) {
+  bootsample <- sample(expsample2, size=50, replace=TRUE)
+  bootmean[i]<- mean(bootsample)
+}
+```
+
+###Descriptive statistics and histogram for bootstrap mean of expsample2
+```{r}
+mean(bootmean)
+sd(bootmean)
+```
+We can see the means from bootstraping follow a normal distribution.
+```{r}
+hist(bootmean, col="red")
+```
+
+
+
